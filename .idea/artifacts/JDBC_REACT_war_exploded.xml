@@ -6,6 +6,11 @@
         <element id="directory" name="classes">
           <element id="module-output" name="JDBC-REACT" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-server:1.8" />
+          <element id="library" level="project" name="Maven: asm:asm:3.1" />
+          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-core:1.8" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/jdbcWithFront/META-INF/MANIFEST.MF" />
