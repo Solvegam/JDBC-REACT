@@ -25,7 +25,7 @@
         <module name="JDBC-REACT" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8">
       <module name="JDBC-REACT" target="1.5" />
     </bytecodeTargetLevel>
   </component>

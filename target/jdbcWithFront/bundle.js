@@ -18321,10 +18321,21 @@
 	        _get(Object.getPrototypeOf(Hello.prototype), "constructor", this).call(this, props);
 
 	        this.state = {
-	            inputValue: ""
+	            inputValue: "",
+	            currentTime: "",
+	            dateDelta: "",
+	            modifiedDate: "",
+	            timeDelta: "",
+	            modifiedTime: "",
+	            dateToFormat: "",
+	            formatedDate: ""
+
 	        };
 	        this.onInputBlur = this.onInputBlur.bind(this);
 	        this.onGetCurrentTimeClick = this.onGetCurrentTimeClick.bind(this);
+	        this.onModifiedDateClick = this.onModifiedDateClick.bind(this);
+	        this.onModifiedTimeClick = this.onModifiedTimeClick.bind(this);
+	        this.onFormatTheDateClick = this.onFormatTheDateClick.bind(this);
 	    }
 
 	    _createClass(Hello, [{
@@ -18335,16 +18346,60 @@
 	    }, {
 	        key: "onGetCurrentTimeClick",
 	        value: function onGetCurrentTimeClick() {
-	            fetch("/web-api/hello/stas", {
+	            var _this = this;
+
+	            fetch("/web-api/rest/current-time/" + this.state.inputValue, {
 	                method: "GET"
 	            }).then(function (response) {
-	                return console.log(response);
+	                response.json().then(function (value) {
+	                    return _this.setState({ currentTime: value });
+	                });
+	            });
+	        }
+	    }, {
+	        key: "onModifiedDateClick",
+	        value: function onModifiedDateClick() {
+	            var _this2 = this;
+
+	            fetch("/web-api/rest/modified-date/" + this.state.dateDelta, {
+	                method: "GET"
+	            }).then(function (response) {
+	                response.text().then(function (value) {
+	                    return _this2.setState({ modifiedDate: value });
+	                });
+	            });
+	        }
+	    }, {
+	        key: "onModifiedTimeClick",
+	        value: function onModifiedTimeClick() {
+	            var _this3 = this;
+
+	            fetch("/web-api/rest/modified-time/" + this.state.timeDelta, {
+	                method: "GET"
+	            }).then(function (response) {
+	                response.text().then(function (value) {
+	                    return _this3.setState({ formatedDate: value });
+	                });
+	            });
+	        }
+	    }, {
+	        key: "onFormatTheDateClick",
+	        value: function onFormatTheDateClick() {
+	            var _this4 = this;
+
+	            fetch("/web-api/rest/format-date/" + this.state.dateToFormat, {
+	                method: "GET"
+	            }).then(function (response) {
+	                response.text().then(function (value) {
+	                    return _this4.setState({ modifiedTime: value });
+	                });
 	            });
 	        }
 	    }, {
 	        key: "render",
 	        value: function render() {
-	            console.log(this.state.inputValue);
+	            var _this5 = this;
+
 	            return _react2["default"].createElement(
 	                "div",
 	                null,
@@ -18355,9 +18410,154 @@
 	                    " Get Current Time "
 	                ),
 	                _react2["default"].createElement(
-	                    "h1",
+	                    "h3",
 	                    null,
-	                    "We are going to win"
+	                    "Current time is: " + this.state.currentTime.dateTime
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "ay number in the year: " + this.state.currentTime.dayOfYear
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "day number in the month: " + this.state.currentTime.dayOfMonth
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "day number in the week: " + this.state.currentTime.dayOfWeek
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "day of week name: " + this.state.currentTime.dayOfWeekName
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "month number in the year: " + this.state.currentTime.monthOfYear
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "month name: " + this.state.currentTime.monthName
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "year: " + this.state.currentTime.year
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "hours: " + this.state.currentTime.hours
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "minutes: " + this.state.currentTime.minutes
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "seconds: " + this.state.currentTime.seconds
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "time zone offset: " + this.state.currentTime.timeZoneOffset
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "time zone id: " + this.state.currentTime.timeZoneId
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "time zone name: " + this.state.currentTime.timeZoneName
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    "time zone rules: " + this.state.currentTime.timeZoneRules
+	                ),
+	                _react2["default"].createElement(
+	                    "h3",
+	                    null,
+	                    "Work with period class"
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    _react2["default"].createElement("input", {
+	                        type: "text",
+	                        placeholder: "Type number here to increase or decrease date",
+	                        onBlur: function (event) {
+	                            return _this5.setState({ dateDelta: event.target.value });
+	                        } }),
+	                    _react2["default"].createElement(
+	                        "button",
+	                        { onClick: this.onModifiedDateClick },
+	                        " Show new date "
+	                    ),
+	                    _react2["default"].createElement(
+	                        "div",
+	                        null,
+	                        this.state.modifiedDate ? this.state.modifiedDate : null
+	                    )
+	                ),
+	                _react2["default"].createElement(
+	                    "h3",
+	                    null,
+	                    "Work with duration class"
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    _react2["default"].createElement("input", {
+	                        type: "text",
+	                        placeholder: "Type number here to increase or decrease hours",
+	                        onBlur: function (event) {
+	                            return _this5.setState({ timeDelta: event.target.value });
+	                        } }),
+	                    _react2["default"].createElement(
+	                        "button",
+	                        { onClick: this.onModifiedTimeClick },
+	                        " Show new time here "
+	                    ),
+	                    _react2["default"].createElement(
+	                        "div",
+	                        null,
+	                        this.state.modifiedTime ? this.state.modifiedTime : null
+	                    )
+	                ),
+	                _react2["default"].createElement(
+	                    "h3",
+	                    null,
+	                    "Work with formatter class"
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    _react2["default"].createElement("input", {
+	                        type: "text",
+	                        placeholder: "type date in format: January 25 2016",
+	                        onBlur: function (event) {
+	                            return _this5.setState({ dateToFormat: event.target.value });
+	                        } }),
+	                    _react2["default"].createElement(
+	                        "button",
+	                        { onClick: this.onFormatTheDateClick },
+	                        " Format my date "
+	                    ),
+	                    _react2["default"].createElement(
+	                        "div",
+	                        null,
+	                        this.state.formatedDate ? this.state.formatedDate : null
+	                    )
 	                )
 	            );
 	        }
