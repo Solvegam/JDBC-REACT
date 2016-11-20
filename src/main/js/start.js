@@ -47,7 +47,7 @@ export default class Hello extends React.Component {
         fetch("/web-api/rest/modified-time/" + this.state.timeDelta, {
             method: "GET"
         }).then(response => {
-            response.text().then(value => this.setState({formatedDate: value}));
+            response.text().then(value => this.setState({modifiedTime: value}));
         });
     }
 
@@ -55,7 +55,7 @@ export default class Hello extends React.Component {
         fetch("/web-api/rest/format-date/" + this.state.dateToFormat, {
             method: "GET"
         }).then(response => {
-            response.text().then(value => this.setState({modifiedTime: value}));
+            response.text().then(value => this.setState({formatedDate: value}));
         });
     }
 

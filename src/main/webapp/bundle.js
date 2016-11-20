@@ -18378,7 +18378,7 @@
 	                method: "GET"
 	            }).then(function (response) {
 	                response.text().then(function (value) {
-	                    return _this3.setState({ formatedDate: value });
+	                    return _this3.setState({ modifiedTime: value });
 	                });
 	            });
 	        }
@@ -18391,7 +18391,7 @@
 	                method: "GET"
 	            }).then(function (response) {
 	                response.text().then(function (value) {
-	                    return _this4.setState({ modifiedTime: value });
+	                    return _this4.setState({ formatedDate: value });
 	                });
 	            });
 	        }

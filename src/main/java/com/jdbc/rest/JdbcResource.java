@@ -64,6 +64,6 @@ public class JdbcResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
     public String formatTheDate(@PathParam("param") String date) {
-        return LocalDate.parse(date, DateTimeFormatter.ISO_DATE).format(DateTimeFormatter.ISO_LOCAL_TIME);
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH)).format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 }
