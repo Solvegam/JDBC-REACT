@@ -13,14 +13,15 @@ export default class Hello extends React.Component {
             timeDelta: "",
             modifiedTime: "",
             dateToFormat: "",
-            formatedDate: ""
-
+            formatedDate: "",
+            databaseData: ""
         };
         this.onInputBlur = this.onInputBlur.bind(this);
         this.onGetCurrentTimeClick = this.onGetCurrentTimeClick.bind(this);
         this.onModifiedDateClick = this.onModifiedDateClick.bind(this);
         this.onModifiedTimeClick = this.onModifiedTimeClick.bind(this);
         this.onFormatTheDateClick = this.onFormatTheDateClick.bind(this);
+        this.onDownloadDbData = this.onDownloadDbData.bind(this);
     }
 
     onInputBlur (event) {
@@ -59,7 +60,23 @@ export default class Hello extends React.Component {
         });
     }
 
+    onDownloadDbData () {
+        fetch("/web-api/rest/database/" + this.state.dateToFormat, {
+            method: "GET"
+        }).then(response => {
+            response.json().then(value => this.setState({databaseData: value}));
+        });
+    }
+
     render() {
+        let tableHeaders;
+        let tableRows;
+        if (this.state.databaseData !== "") {
+            tableHeaders = Object.keys(this.state.databaseData[0]).map(fieldName => <td>{fieldName}</td>);
+            tableRows = this.state.databaseData
+                .map(data => <tr>{Object.keys(data).map(fieldName => <td>{data[fieldName]}</td>)}</tr>);
+        }
+
         return (
             <div>
                 <button type="text" onClick={this.onGetCurrentTimeClick}> Get Current Time </button>
@@ -140,6 +157,18 @@ export default class Hello extends React.Component {
                         {this.state.formatedDate ? this.state.formatedDate : null}
                     </div>
                 </div>
+                <div>
+                    <button onClick={this.onDownloadDbData}> Download data from database </button>
+                    <table>
+                        <thead>
+                        {tableHeaders}
+                        </thead>
+                        <tbody>
+                        {tableRows}
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
     );
     }

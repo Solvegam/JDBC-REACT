@@ -1,6 +1,5 @@
 package com.jdbc.rest.domain;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 
 /**

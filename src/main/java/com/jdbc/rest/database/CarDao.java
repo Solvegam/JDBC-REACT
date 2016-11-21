@@ -28,7 +28,6 @@ public class CarDao {
                         resultSet.getInt("customer_id"),
                         resultSet.getString("color"),
                         resultSet.getDate("production_date").toLocalDate()));
-
             }
             statement.close();
             connection.close();
