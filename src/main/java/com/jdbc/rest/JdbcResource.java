@@ -1,6 +1,7 @@
 package com.jdbc.rest;
 
-import com.jdbc.rest.date_time_service.DateTimeService;
+import com.jdbc.rest.database.DatabaseService;
+import com.jdbc.rest.domain.Car;
 import com.jdbc.rest.dto.TimeDTO;
 
 import javax.ws.rs.*;
@@ -8,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -65,5 +67,15 @@ public class JdbcResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String formatTheDate(@PathParam("param") String date) {
         return LocalDate.parse(date, DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH)).format(DateTimeFormatter.ISO_LOCAL_DATE);
+    }
+
+    @GET
+    @Path("database")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Car> getAllCars() {
+        DatabaseService databaseService = new DatabaseService();
+        databaseService.fillCarShopData();
+        databaseService.getAllCars();
+        return databaseService.getAllCars();
     }
 }

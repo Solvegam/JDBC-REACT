@@ -62,7 +62,6 @@ export default class Hello extends React.Component {
     render() {
         return (
             <div>
-                <input type="text" placeholder="Type the country here" onBlur={this.onInputBlur}/>
                 <button type="text" onClick={this.onGetCurrentTimeClick}> Get Current Time </button>
                 <h3>{"Current time is: " + this.state.currentTime.dateTime}</h3>
                 <div>

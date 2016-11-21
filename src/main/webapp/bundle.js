@@ -18403,7 +18403,6 @@
 	            return _react2["default"].createElement(
 	                "div",
 	                null,
-	                _react2["default"].createElement("input", { type: "text", placeholder: "Type the country here", onBlur: this.onInputBlur }),
 	                _react2["default"].createElement(
 	                    "button",
 	                    { type: "text", onClick: this.onGetCurrentTimeClick },

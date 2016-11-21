@@ -18378,7 +18378,7 @@
 	                method: "GET"
 	            }).then(function (response) {
 	                response.text().then(function (value) {
-	                    return _this3.setState({ formatedDate: value });
+	                    return _this3.setState({ modifiedTime: value });
 	                });
 	            });
 	        }
@@ -18391,7 +18391,7 @@
 	                method: "GET"
 	            }).then(function (response) {
 	                response.text().then(function (value) {
-	                    return _this4.setState({ modifiedTime: value });
+	                    return _this4.setState({ formatedDate: value });
 	                });
 	            });
 	        }
@@ -18403,7 +18403,6 @@
 	            return _react2["default"].createElement(
 	                "div",
 	                null,
-	                _react2["default"].createElement("input", { type: "text", placeholder: "Type the country here", onBlur: this.onInputBlur }),
 	                _react2["default"].createElement(
 	                    "button",
 	                    { type: "text", onClick: this.onGetCurrentTimeClick },
