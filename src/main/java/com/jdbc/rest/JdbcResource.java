@@ -78,4 +78,31 @@ public class JdbcResource {
         databaseService.getAllCars();
         return databaseService.getAllCars();
     }
+
+    @POST
+    @Path("database")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void addNewCar(@FormParam("model")String model, @FormParam("producer")String producer) {
+        DatabaseService databaseService = new DatabaseService();
+        databaseService.addNewCar(model, producer);
+    }
+
+    @PUT
+    @Path("database")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void editExistedCar(@FormParam("model")String model, @FormParam("color")String producer) {
+
+        return ;
+    }
+
+    @DELETE
+    @Path("database")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void deleteExistedCar(@FormParam("producer")String producer) {
+
+        return ;
+    }
 }

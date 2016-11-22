@@ -72,6 +72,12 @@ public class DatabaseService {
         return carDao.getAllCars(connection);
     }
 
+    public void addNewCar(String model, String producer) {
+        Connection connection = openConnection();
+        CarDao carDao = new CarDao();
+        carDao.addNewCar(connection, model, producer);
+    }
+
     private Connection openConnection() {
         Connection dbConnection = null;
 

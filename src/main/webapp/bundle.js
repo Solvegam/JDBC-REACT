@@ -18598,6 +18598,11 @@
 	                    )
 	                ),
 	                _react2["default"].createElement(
+	                    "h3",
+	                    null,
+	                    "Work with downloading data from DB"
+	                ),
+	                _react2["default"].createElement(
 	                    "div",
 	                    null,
 	                    _react2["default"].createElement(
@@ -18617,6 +18622,57 @@
 	                            "tbody",
 	                            null,
 	                            tableRows
+	                        )
+	                    )
+	                ),
+	                _react2["default"].createElement(
+	                    "h3",
+	                    null,
+	                    "Work with adding new row to DB"
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    _react2["default"].createElement(
+	                        "div",
+	                        null,
+	                        _react2["default"].createElement(
+	                            "form",
+	                            { action: "web-api/rest/database", method: "POST" },
+	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type producer", name: "producer" }),
+	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type model", name: "model" }),
+	                            _react2["default"].createElement("input", { type: "submit", value: "Add new car" })
+	                        )
+	                    ),
+	                    _react2["default"].createElement(
+	                        "h3",
+	                        null,
+	                        "Work with editing of a row in DB"
+	                    ),
+	                    _react2["default"].createElement(
+	                        "div",
+	                        null,
+	                        _react2["default"].createElement(
+	                            "form",
+	                            { action: "web-api/rest/database", method: "PUT" },
+	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type producer to edit", name: "producer" }),
+	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type color to edit", name: "color" }),
+	                            _react2["default"].createElement("input", { type: "submit", value: "Edit existed car" })
+	                        )
+	                    ),
+	                    _react2["default"].createElement(
+	                        "h3",
+	                        null,
+	                        "Work with deleting of a row in DB"
+	                    ),
+	                    _react2["default"].createElement(
+	                        "div",
+	                        null,
+	                        _react2["default"].createElement(
+	                            "form",
+	                            { action: "web-api/rest/database", method: "DELETE" },
+	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type producer to delete", name: "producer" }),
+	                            _react2["default"].createElement("input", { type: "submit", value: "Delete existed car" })
 	                        )
 	                    )
 	                )

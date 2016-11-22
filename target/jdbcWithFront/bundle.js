@@ -18328,14 +18328,15 @@
 	            timeDelta: "",
 	            modifiedTime: "",
 	            dateToFormat: "",
-	            formatedDate: ""
-
+	            formatedDate: "",
+	            databaseData: ""
 	        };
 	        this.onInputBlur = this.onInputBlur.bind(this);
 	        this.onGetCurrentTimeClick = this.onGetCurrentTimeClick.bind(this);
 	        this.onModifiedDateClick = this.onModifiedDateClick.bind(this);
 	        this.onModifiedTimeClick = this.onModifiedTimeClick.bind(this);
 	        this.onFormatTheDateClick = this.onFormatTheDateClick.bind(this);
+	        this.onDownloadDbData = this.onDownloadDbData.bind(this);
 	    }
 
 	    _createClass(Hello, [{
@@ -18396,9 +18397,47 @@
 	            });
 	        }
 	    }, {
+	        key: "onDownloadDbData",
+	        value: function onDownloadDbData() {
+	            var _this5 = this;
+
+	            fetch("/web-api/rest/database/" + this.state.dateToFormat, {
+	                method: "GET"
+	            }).then(function (response) {
+	                response.json().then(function (value) {
+	                    return _this5.setState({ databaseData: value });
+	                });
+	            });
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
-	            var _this5 = this;
+	            var _this6 = this;
+
+	            var tableHeaders = undefined;
+	            var tableRows = undefined;
+	            if (this.state.databaseData !== "") {
+	                tableHeaders = Object.keys(this.state.databaseData[0]).map(function (fieldName) {
+	                    return _react2["default"].createElement(
+	                        "td",
+	                        null,
+	                        fieldName
+	                    );
+	                });
+	                tableRows = this.state.databaseData.map(function (data) {
+	                    return _react2["default"].createElement(
+	                        "tr",
+	                        null,
+	                        Object.keys(data).map(function (fieldName) {
+	                            return _react2["default"].createElement(
+	                                "td",
+	                                null,
+	                                data[fieldName]
+	                            );
+	                        })
+	                    );
+	                });
+	            }
 
 	            return _react2["default"].createElement(
 	                "div",
@@ -18495,7 +18534,7 @@
 	                        type: "text",
 	                        placeholder: "Type number here to increase or decrease date",
 	                        onBlur: function (event) {
-	                            return _this5.setState({ dateDelta: event.target.value });
+	                            return _this6.setState({ dateDelta: event.target.value });
 	                        } }),
 	                    _react2["default"].createElement(
 	                        "button",
@@ -18520,7 +18559,7 @@
 	                        type: "text",
 	                        placeholder: "Type number here to increase or decrease hours",
 	                        onBlur: function (event) {
-	                            return _this5.setState({ timeDelta: event.target.value });
+	                            return _this6.setState({ timeDelta: event.target.value });
 	                        } }),
 	                    _react2["default"].createElement(
 	                        "button",
@@ -18545,7 +18584,7 @@
 	                        type: "text",
 	                        placeholder: "type date in format: January 25 2016",
 	                        onBlur: function (event) {
-	                            return _this5.setState({ dateToFormat: event.target.value });
+	                            return _this6.setState({ dateToFormat: event.target.value });
 	                        } }),
 	                    _react2["default"].createElement(
 	                        "button",
@@ -18556,6 +18595,85 @@
 	                        "div",
 	                        null,
 	                        this.state.formatedDate ? this.state.formatedDate : null
+	                    )
+	                ),
+	                _react2["default"].createElement(
+	                    "h3",
+	                    null,
+	                    "Work with downloading data from DB"
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    _react2["default"].createElement(
+	                        "button",
+	                        { onClick: this.onDownloadDbData },
+	                        " Download data from database "
+	                    ),
+	                    _react2["default"].createElement(
+	                        "table",
+	                        null,
+	                        _react2["default"].createElement(
+	                            "thead",
+	                            null,
+	                            tableHeaders
+	                        ),
+	                        _react2["default"].createElement(
+	                            "tbody",
+	                            null,
+	                            tableRows
+	                        )
+	                    )
+	                ),
+	                _react2["default"].createElement(
+	                    "h3",
+	                    null,
+	                    "Work with adding new row to DB"
+	                ),
+	                _react2["default"].createElement(
+	                    "div",
+	                    null,
+	                    _react2["default"].createElement(
+	                        "div",
+	                        null,
+	                        _react2["default"].createElement(
+	                            "form",
+	                            { action: "web-api/rest/database", method: "POST" },
+	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type producer", name: "producer" }),
+	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type model", name: "model" }),
+	                            _react2["default"].createElement("input", { type: "submit", value: "Add new car" })
+	                        )
+	                    ),
+	                    _react2["default"].createElement(
+	                        "h3",
+	                        null,
+	                        "Work with editing of a row in DB"
+	                    ),
+	                    _react2["default"].createElement(
+	                        "div",
+	                        null,
+	                        _react2["default"].createElement(
+	                            "form",
+	                            { action: "web-api/rest/database", method: "PUT" },
+	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type producer to edit", name: "producer" }),
+	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type color to edit", name: "color" }),
+	                            _react2["default"].createElement("input", { type: "submit", value: "Edit existed car" })
+	                        )
+	                    ),
+	                    _react2["default"].createElement(
+	                        "h3",
+	                        null,
+	                        "Work with deleting of a row in DB"
+	                    ),
+	                    _react2["default"].createElement(
+	                        "div",
+	                        null,
+	                        _react2["default"].createElement(
+	                            "form",
+	                            { action: "web-api/rest/database", method: "DELETE" },
+	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type producer to delete", name: "producer" }),
+	                            _react2["default"].createElement("input", { type: "submit", value: "Delete existed car" })
+	                        )
 	                    )
 	                )
 	            );

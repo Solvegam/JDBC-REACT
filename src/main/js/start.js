@@ -157,6 +157,7 @@ export default class Hello extends React.Component {
                         {this.state.formatedDate ? this.state.formatedDate : null}
                     </div>
                 </div>
+                <h3>Work with downloading data from DB</h3>
                 <div>
                     <button onClick={this.onDownloadDbData}> Download data from database </button>
                     <table>
@@ -168,7 +169,31 @@ export default class Hello extends React.Component {
                         </tbody>
                     </table>
                 </div>
-
+                <h3>Work with adding new row to DB</h3>
+                <div>
+                    <div>
+                        <form action="web-api/rest/database" method="POST">
+                            <input type="text" placeholder="Type producer" name="producer" />
+                            <input type="text" placeholder="Type model"  name="model" />
+                            <input type="submit" value="Add new car" />
+                        </form>
+                    </div>
+                    <h3>Work with editing of a row in DB</h3>
+                    <div>
+                        <form action="web-api/rest/database" method="PUT">
+                            <input type="text" placeholder="Type producer to edit" name="producer" />
+                            <input type="text" placeholder="Type color to edit"  name="color" />
+                            <input type="submit" value="Edit existed car" />
+                        </form>
+                    </div>
+                    <h3>Work with deleting of a row in DB</h3>
+                    <div>
+                        <form action="web-api/rest/database" method="DELETE">
+                            <input type="text" placeholder="Type producer to delete" name="producer" />
+                            <input type="submit" value="Delete existed car" />
+                        </form>
+                    </div>
+                </div>
             </div>
     );
     }
