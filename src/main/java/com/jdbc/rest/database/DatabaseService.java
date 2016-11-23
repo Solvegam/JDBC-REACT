@@ -78,6 +78,18 @@ public class DatabaseService {
         carDao.addNewCar(connection, model, producer);
     }
 
+    public void editExistedCar(String color, String producer) {
+        Connection connection = openConnection();
+        CarDao carDao = new CarDao();
+        carDao.editExistedCar(connection, color, producer);
+    }
+
+    public void deleteExistedCarsByColor(String color) {
+        Connection connection = openConnection();
+        CarDao carDao = new CarDao();
+        carDao.deleteExistedCarsByColor(connection, color);
+    }
+
     private Connection openConnection() {
         Connection dbConnection = null;
 

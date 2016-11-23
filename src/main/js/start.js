@@ -22,6 +22,7 @@ export default class Hello extends React.Component {
         this.onModifiedTimeClick = this.onModifiedTimeClick.bind(this);
         this.onFormatTheDateClick = this.onFormatTheDateClick.bind(this);
         this.onDownloadDbData = this.onDownloadDbData.bind(this);
+        this.onEditCar = this.onEditCar.bind(this);
     }
 
     onInputBlur (event) {
@@ -61,10 +62,24 @@ export default class Hello extends React.Component {
     }
 
     onDownloadDbData () {
-        fetch("/web-api/rest/database/" + this.state.dateToFormat, {
+        fetch("/web-api/rest/database", {
             method: "GET"
         }).then(response => {
             response.json().then(value => this.setState({databaseData: value}));
+        });
+    }
+
+    onEditCar (event) {
+        event.preventDefault();
+        fetch("/web-api/rest/database?producer=" + this.state.producerForEdit + "&color=" + this.state.colorForEdit, {
+            method: "PUT"
+        });
+    }
+
+    onDeleteCar (event) {
+        event.preventDefault();
+        fetch("/web-api/rest/database?color=" + this.state.colorForDelete, {
+            method: "DELETE"
         });
     }
 
@@ -180,17 +195,29 @@ export default class Hello extends React.Component {
                     </div>
                     <h3>Work with editing of a row in DB</h3>
                     <div>
-                        <form action="web-api/rest/database" method="PUT">
-                            <input type="text" placeholder="Type producer to edit" name="producer" />
-                            <input type="text" placeholder="Type color to edit"  name="color" />
+                        <form action="web-api/rest/database" onSubmit={event => this.onEditCar(event)}>
+                            <input
+                                type="text"
+                                placeholder="Type producer to edit"
+                                name="producer"
+                                onBlur={(event) => this.setState(Object.assign({}, this.state, { "producerForEdit": event.target.value}))} />
+                            <input
+                                type="text"
+                                placeholder="Type color to edit"
+                                name="color"
+                                onBlur={(event) => this.setState(Object.assign({}, this.state, { "colorForEdit": event.target.value}))} />
                             <input type="submit" value="Edit existed car" />
                         </form>
                     </div>
                     <h3>Work with deleting of a row in DB</h3>
                     <div>
-                        <form action="web-api/rest/database" method="DELETE">
-                            <input type="text" placeholder="Type producer to delete" name="producer" />
-                            <input type="submit" value="Delete existed car" />
+                        <form action="web-api/rest/database" onSubmit={event => this.onDeleteCar(event)}>
+                            <input
+                                type="text"
+                                placeholder="Type color to delete"
+                                name="color"
+                                onBlur={(event) => this.setState(Object.assign({}, this.state, { "colorForDelete": event.target.value}))} />
+                            <input type="submit" value="Delete existed cars" />
                         </form>
                     </div>
                 </div>

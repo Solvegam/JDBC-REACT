@@ -82,7 +82,6 @@ public class JdbcResource {
     @POST
     @Path("database")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.APPLICATION_JSON)
     public void addNewCar(@FormParam("model")String model, @FormParam("producer")String producer) {
         DatabaseService databaseService = new DatabaseService();
         databaseService.addNewCar(model, producer);
@@ -90,19 +89,15 @@ public class JdbcResource {
 
     @PUT
     @Path("database")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.APPLICATION_JSON)
-    public void editExistedCar(@FormParam("model")String model, @FormParam("color")String producer) {
-
-        return ;
+    public void editExistedCar(@QueryParam("color") String color, @QueryParam("producer") String producer) {
+        DatabaseService databaseService = new DatabaseService();
+        databaseService.editExistedCar(color, producer);
     }
 
     @DELETE
     @Path("database")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.APPLICATION_JSON)
-    public void deleteExistedCar(@FormParam("producer")String producer) {
-
-        return ;
+    public void deleteExistedCar(@QueryParam("color")String color) {
+        DatabaseService databaseService = new DatabaseService();
+        databaseService.deleteExistedCarsByColor(color);
     }
 }

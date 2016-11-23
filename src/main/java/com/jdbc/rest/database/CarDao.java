@@ -52,10 +52,37 @@ public class CarDao {
             preparedStatement.setInt(7, 2213);
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void editExistedCar(Connection connection, String color, String producer) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE CARS SET color=? WHERE producer=?");
+            preparedStatement.setString(1, color);
+            preparedStatement.setString(2, producer);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void deleteExistedCarsByColor(Connection connection, String color) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM CARS WHERE color=?");
+            preparedStatement.setString(1, color);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
