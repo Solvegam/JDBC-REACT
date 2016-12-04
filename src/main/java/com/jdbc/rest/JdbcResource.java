@@ -1,6 +1,6 @@
 package com.jdbc.rest;
 
-import com.jdbc.rest.database.DatabaseService;
+import com.jdbc.rest.database.CarDao;
 import com.jdbc.rest.domain.Car;
 import com.jdbc.rest.dto.TimeDTO;
 
@@ -73,31 +73,30 @@ public class JdbcResource {
     @Path("database")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Car> getAllCars() {
-        DatabaseService databaseService = new DatabaseService();
-        databaseService.fillCarShopData();
-        databaseService.getAllCars();
-        return databaseService.getAllCars();
+        CarDao carDao = new CarDao();
+        carDao.createAndFillCarsTable();
+        return carDao.getAllCars();
     }
 
     @POST
     @Path("database")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public void addNewCar(@FormParam("model")String model, @FormParam("producer")String producer) {
-        DatabaseService databaseService = new DatabaseService();
-        databaseService.addNewCar(model, producer);
+        CarDao carDao = new CarDao();
+        carDao.addNewCar(model, producer);
     }
 
     @PUT
     @Path("database")
     public void editExistedCar(@QueryParam("color") String color, @QueryParam("producer") String producer) {
-        DatabaseService databaseService = new DatabaseService();
-        databaseService.editExistedCar(color, producer);
+        CarDao carDao = new CarDao();
+        carDao.editExistedCar(color, producer);
     }
 
     @DELETE
     @Path("database")
     public void deleteExistedCar(@QueryParam("color")String color) {
-        DatabaseService databaseService = new DatabaseService();
-        databaseService.deleteExistedCarsByColor(color);
+        CarDao carDao = new CarDao();
+        carDao.deleteExistedCarsByColor(color);
     }
 }

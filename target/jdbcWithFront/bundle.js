@@ -18337,6 +18337,7 @@
 	        this.onModifiedTimeClick = this.onModifiedTimeClick.bind(this);
 	        this.onFormatTheDateClick = this.onFormatTheDateClick.bind(this);
 	        this.onDownloadDbData = this.onDownloadDbData.bind(this);
+	        this.onEditCar = this.onEditCar.bind(this);
 	    }
 
 	    _createClass(Hello, [{
@@ -18401,12 +18402,28 @@
 	        value: function onDownloadDbData() {
 	            var _this5 = this;
 
-	            fetch("/web-api/rest/database/" + this.state.dateToFormat, {
+	            fetch("/web-api/rest/database", {
 	                method: "GET"
 	            }).then(function (response) {
 	                response.json().then(function (value) {
 	                    return _this5.setState({ databaseData: value });
 	                });
+	            });
+	        }
+	    }, {
+	        key: "onEditCar",
+	        value: function onEditCar(event) {
+	            event.preventDefault();
+	            fetch("/web-api/rest/database?producer=" + this.state.producerForEdit + "&color=" + this.state.colorForEdit, {
+	                method: "PUT"
+	            });
+	        }
+	    }, {
+	        key: "onDeleteCar",
+	        value: function onDeleteCar(event) {
+	            event.preventDefault();
+	            fetch("/web-api/rest/database?color=" + this.state.colorForDelete, {
+	                method: "DELETE"
 	            });
 	        }
 	    }, {
@@ -18654,9 +18671,23 @@
 	                        null,
 	                        _react2["default"].createElement(
 	                            "form",
-	                            { action: "web-api/rest/database", method: "PUT" },
-	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type producer to edit", name: "producer" }),
-	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type color to edit", name: "color" }),
+	                            { action: "web-api/rest/database", onSubmit: function (event) {
+	                                    return _this6.onEditCar(event);
+	                                } },
+	                            _react2["default"].createElement("input", {
+	                                type: "text",
+	                                placeholder: "Type producer to edit",
+	                                name: "producer",
+	                                onBlur: function (event) {
+	                                    return _this6.setState(Object.assign({}, _this6.state, { "producerForEdit": event.target.value }));
+	                                } }),
+	                            _react2["default"].createElement("input", {
+	                                type: "text",
+	                                placeholder: "Type color to edit",
+	                                name: "color",
+	                                onBlur: function (event) {
+	                                    return _this6.setState(Object.assign({}, _this6.state, { "colorForEdit": event.target.value }));
+	                                } }),
 	                            _react2["default"].createElement("input", { type: "submit", value: "Edit existed car" })
 	                        )
 	                    ),
@@ -18670,9 +18701,17 @@
 	                        null,
 	                        _react2["default"].createElement(
 	                            "form",
-	                            { action: "web-api/rest/database", method: "DELETE" },
-	                            _react2["default"].createElement("input", { type: "text", placeholder: "Type producer to delete", name: "producer" }),
-	                            _react2["default"].createElement("input", { type: "submit", value: "Delete existed car" })
+	                            { action: "web-api/rest/database", onSubmit: function (event) {
+	                                    return _this6.onDeleteCar(event);
+	                                } },
+	                            _react2["default"].createElement("input", {
+	                                type: "text",
+	                                placeholder: "Type color to delete",
+	                                name: "color",
+	                                onBlur: function (event) {
+	                                    return _this6.setState(Object.assign({}, _this6.state, { "colorForDelete": event.target.value }));
+	                                } }),
+	                            _react2["default"].createElement("input", { type: "submit", value: "Delete existed cars" })
 	                        )
 	                    )
 	                )
